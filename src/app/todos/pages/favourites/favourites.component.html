@@ -1,0 +1,15 @@
+@if(favourites$ | async; as todayTodos) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Favourite TODO's</mat-card-title>
+    </mat-card-header>
+    <mat-divider />
+    <mat-card-content>
+      @for(todo of todayTodos; track todo.id) {
+        <app-list-item-todo [todo]="todo" />
+      } @empty {
+        <p>No todos in favourite</p>
+      }
+    </mat-card-content>
+  </mat-card>
+}

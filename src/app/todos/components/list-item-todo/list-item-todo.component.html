@@ -1,0 +1,26 @@
+<tr>
+  <td>
+    <input type="checkbox" />
+  </td>
+  <td class="title">
+    {{ todo().title }}
+  </td>
+  <td class="created-at">
+    {{ todo().createdAt.split('T')[0] }}
+  </td>
+  <td [ngClass]="['time-left', criticallyUrgent ? 'time-left--urgent': '']">
+    {{ timeLeft }}
+  </td>
+  <td class="like-btn">
+    <button (click)="like()">
+      @if(todo().favourite) {
+        <img class="like-btn__heart-img" src="/assets/heart-filled.png" alt="">
+      } @else {
+        <img class="like-btn__heart-img" src="/assets/heart.png" alt="">
+      }
+    </button>
+  </td>
+  <td>
+    <button class="delete-btn" (click)="delete()">[X]</button>
+  </td>
+</tr>

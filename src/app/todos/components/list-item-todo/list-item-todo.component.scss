@@ -1,0 +1,53 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+
+  tr {
+    width: 100%;
+
+    .title {
+      width: 300px;
+    }
+
+    .created-at {
+      width: 300px;
+    }
+
+    .time-left {
+      width: 300px;
+
+      &--urgent {
+        color: red;
+      }
+    }
+
+    .like-btn {
+      height: 30px;
+      width: 30px;
+      button {
+        background-color: transparent;
+        border: none;
+        margin-top: 10px;
+      }
+      &__heart-img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .delete-btn {
+      border-radius: 10px;
+      margin-left: 10px;
+      background-color: red;
+      color: white;
+      height: 40px;
+      width: 40px;
+      border: none;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+
+}

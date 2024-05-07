@@ -1,0 +1,24 @@
+<app-back-btn />
+<h1>Add Todo</h1>
+<form [formGroup]="form" class="form" (ngSubmit)="formSubmit()">
+  <mat-form-field class="form__form-field">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title">
+  </mat-form-field>
+  <p class="form__error-text">{{ titleError }}</p>
+  <div class="form__date-time-pickers-row">
+    <mat-form-field class="form__date-time-pickers-row__field">
+      <mat-label>Input disabled</mat-label>
+      <input matInput [matDatepicker]="dp3" formControlName="expirationDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+      <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="form__date-time-pickers-row__field">
+      <input matInput [ngxTimepicker]="picker" formControlName="expirationTime">
+      <ngx-material-timepicker #picker></ngx-material-timepicker>
+    </mat-form-field>
+  </div>
+  <p class="form__error-text">{{ dateTimeError }}</p>
+  <button [disabled]="!form.valid" mat-flat-button color="primary" type="submit">Create TODO</button>
+</form>

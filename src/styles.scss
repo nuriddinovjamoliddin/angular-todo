@@ -1,0 +1,27 @@
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.todo-container {
+  width: 100%;
+}
+
+@media screen and (min-width: 700px) {
+  .todo-container {
+    width: 700px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 920px) {
+  .todo-container {
+    width: 920px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .todo-container {
+    width: 1080px;
+    margin: 0 auto;
+  }
+}

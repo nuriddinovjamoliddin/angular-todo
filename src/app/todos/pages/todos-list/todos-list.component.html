@@ -1,0 +1,31 @@
+@if(todayTodos$ | async; as todayTodos) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Today TODO's</mat-card-title>
+    </mat-card-header>
+    <mat-divider />
+    <mat-card-content>
+      @for(todo of todayTodos; track todo.id) {
+        <app-list-item-todo [todo]="todo" />
+      } @empty {
+        <p>No todos for today</p>
+      }
+    </mat-card-content>
+  </mat-card>
+}
+
+@if(upcomingTodos$ | async; as upcomingTodos) {
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Upcoming TODO's</mat-card-title>
+    </mat-card-header>
+    <mat-divider />
+    <mat-card-content>
+      @for(todo of upcomingTodos; track todo.id) {
+        <app-list-item-todo [todo]="todo" />
+      } @empty {
+        <p>No upcoming todos</p>
+      }
+    </mat-card-content>
+  </mat-card>
+}

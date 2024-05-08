@@ -26,3 +26,25 @@
     }
   }
 }
+
+@media screen and (max-width: 700px) {
+  :host {
+    .form {
+      width: 100%;
+      padding: 0 20px;
+
+      &__form-field {
+        width: 90%;
+      }
+
+      &__date-time-pickers-row {
+        flex-direction: column;
+        gap: 10px;
+
+        &__field {
+          width: 90%;
+        }
+      }
+    }
+  }
+}

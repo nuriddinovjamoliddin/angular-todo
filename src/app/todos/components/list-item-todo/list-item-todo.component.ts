@@ -14,6 +14,7 @@ import {Subscription} from "rxjs";
   styleUrl: './list-item-todo.component.scss'
 })
 export class ListItemTodoComponent {
+  public requestProcessing = false
   public readonly todo = input.required<ITodo>()
   public readonly todoService = inject(TodosService)
 
@@ -40,15 +41,29 @@ export class ListItemTodoComponent {
   }
 
   public like(): void {
+    this.requestProcessing = true
     this.subs.push(
-      this.todoService.toggleFavourite(this.todo().id).subscribe()
+      this.todoService.toggleFavourite(this.todo().id).subscribe({
+        next: () => {
+          this.requestProcessing = false
+        },
+        error: () => {
+          this.requestProcessing = false
+        }
+      })
     )
   }
 
   public delete(): void {
+    this.requestProcessing = true
     this.subs.push(
-      this.todoService.deleteTodoById(this.todo().id).subscribe(() => {
-        console.log('deleted')
+      this.todoService.deleteTodoById(this.todo().id).subscribe({
+        next: () => {
+          this.requestProcessing = false
+        },
+        error: () => {
+          this.requestProcessing = false
+        }
       })
     )
   }

@@ -3,10 +3,15 @@
     <a routerLink="/">
       <h1>My Todo List</h1>
     </a>
-    <div class="nav-content__links">
+    <div [ngClass]="['nav-content__links', burgerOpen ? 'nav-content__links--visible' : '']">
       <a routerLink="/add">ADD</a>
       <a routerLink="/list">LIST</a>
       <a routerLink="/favorite">FAVOURITE TODO LIST</a>
+    </div>
+    <div class="nav-content__burger" (click)="toggleBurger()">
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
 </nav>

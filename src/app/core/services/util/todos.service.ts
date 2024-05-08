@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {combineLatest, first, map, Observable, switchMap, tap} from "rxjs";
+import {combineLatest, debounceTime, exhaustMap, first, interval, map, Observable, switchMap, tap, timeout} from "rxjs";
 import {StorageMap} from "@ngx-pwa/local-storage";
 import {ITodo} from "../../types/todo.interface";
 import {TodoListSchema} from "../../schemas/todo.schema";
@@ -17,8 +17,12 @@ export enum STORAGE_KEYS {
 export class TodosService {
   private readonly storage = inject(StorageMap)
   private readonly todos$ = new UpdatableCache<ITodo[]>(
-    this.storage.get<ITodo[]>(STORAGE_KEYS.TODOS, TodoListSchema).pipe(
-        map(todos => todos ?? [])
+    interval(500).pipe(
+      exhaustMap(() => {
+        return this.storage.get<ITodo[]>(STORAGE_KEYS.TODOS, TodoListSchema).pipe(
+            map(todos => todos ?? [])
+        )
+      })
     )
   )
 
@@ -35,7 +39,7 @@ export class TodosService {
   public addTodo(todo: CreateTodoInterface): Observable<void> {
     return this.getAllTodos().pipe(
       first(),
-      switchMap((todosList) => {
+      exhaustMap((todosList) => {
         const newTodo: ITodo = {
           ...todo,
           id: nanoid(),
@@ -54,7 +58,7 @@ export class TodosService {
   public deleteTodoById(id: string): Observable<void> {
     return this.getAllTodos().pipe(
       first(),
-      switchMap(todos => {
+      exhaustMap(todos => {
         const updatedTodos = todos.filter(todo => todo.id !== id)
         return this.storage.set(STORAGE_KEYS.TODOS, updatedTodos).pipe(
           switchMap(() => this.todos$.update()),
@@ -96,7 +100,7 @@ export class TodosService {
   public toggleFavourite(id: string): Observable<void> {
     return this.todos$.getState().pipe(
       first(),
-      switchMap(todos => {
+      exhaustMap(todos => {
         const updatedTodos = todos.map((todo: ITodo) => {
           if (todo.id === id) {
             return {

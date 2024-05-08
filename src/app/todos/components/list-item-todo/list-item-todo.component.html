@@ -1,26 +1,30 @@
-<tr>
-  <td>
+  <span>
     <input type="checkbox" />
-  </td>
-  <td class="title">
+  </span>
+  <span class="title">
     {{ todo().title }}
-  </td>
-  <td class="created-at">
-    {{ todo().createdAt.split('T')[0] }}
-  </td>
-  <td [ngClass]="['time-left', criticallyUrgent ? 'time-left--urgent': '']">
-    {{ timeLeft }}
-  </td>
-  <td class="like-btn">
-    <button (click)="like()">
-      @if(todo().favourite) {
-        <img class="like-btn__heart-img" src="/assets/heart-filled.png" alt="">
-      } @else {
-        <img class="like-btn__heart-img" src="/assets/heart.png" alt="">
-      }
+  </span>
+  <div class="dates">
+    <div class="dates__created-at">
+      {{ todo().createdAt.split('T')[0] }}
+    </div>
+    <div [ngClass]="['dates__time-left', criticallyUrgent ? 'dates__time-left--urgent': '']">
+      {{ timeLeft }}
+    </div>
+  </div>
+  <div class="btns-row">
+    <span class="like-btn">
+      <button [disabled]="requestProcessing" (click)="like()">
+        @if(todo().favourite) {
+          <img class="like-btn__heart-img" src="/assets/heart-filled.png" alt="">
+        } @else {
+          <img class="like-btn__heart-img" src="/assets/heart.png" alt="">
+        }
+        <span class="like-btn__text">Add to Favorites</span>
+      </button>
+    </span>
+    <button [disabled]="requestProcessing" class="delete-btn" (click)="delete()">
+      [X]
+      <span class="delete-btn__text">Delete</span>
     </button>
-  </td>
-  <td>
-    <button class="delete-btn" (click)="delete()">[X]</button>
-  </td>
-</tr>
+  </div>
